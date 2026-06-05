@@ -1,8 +1,306 @@
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.map-app {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
 #map {
     width: 100%;
     height: 100%;
 }
 
+/* ─── Go Home ────────────────────────────────────────────────────────────── */
+.go-home-btn {
+    position: absolute;
+    z-index: 1000;
+    top: 12px;
+    left: 12px;
+    padding: 8px 16px;
+    background: #2e7d4f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: background 0.15s;
+}
+
+.go-home-btn:hover {
+    background: #256b42;
+    color: #fff;
+}
+
+/* ─── Pollutant switcher ─────────────────────────────────────────────────── */
+.pollutant-switcher {
+    position: absolute;
+    z-index: 1000;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pollutant-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #444;
+    transition: background 0.15s, color 0.15s;
+}
+
+.pollutant-btn:hover {
+    background: #f0f0f0;
+}
+
+.pollutant-btn.active {
+    background: #2e7d4f;
+    color: #fff;
+}
+
+/* ─── Layer panel ────────────────────────────────────────────────────────── */
+.layer-panel {
+    position: absolute;
+    z-index: 1000;
+    top: 60px;
+    left: 12px;
+    width: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: width 0.25s, opacity 0.25s;
+    overflow: hidden;
+}
+
+.layer-panel.collapsed {
+    width: 44px;
+}
+
+.layer-panel.collapsed .layer-panel-body,
+.layer-panel.collapsed .layer-panel-header h2 {
+    display: none;
+}
+
+.layer-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e8e8e8;
+    background: #f8f8f8;
+}
+
+.layer-panel-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.sidebar-toggle {
+    border: none;
+    background: #e0e0e0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: #333;
+}
+
+.layer-panel-body {
+    padding: 12px 14px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.layer-toggle-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.layer-toggle-row input {
+    margin-top: 3px;
+    accent-color: #2e7d4f;
+}
+
+.panel-divider {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #e8e8e8;
+}
+
+.panel-section-title {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #888;
+}
+
+/* ─── Basemap switcher ───────────────────────────────────────────────────── */
+.basemap-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.basemap-btn {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.basemap-btn:hover {
+    background: #f0f0f0;
+}
+
+.basemap-btn.active {
+    background: #2e7d4f;
+    border-color: #2e7d4f;
+    color: #fff;
+}
+
+/* ─── Opacity slider ─────────────────────────────────────────────────────── */
+.opacity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.opacity-control input[type="range"] {
+    flex: 1;
+    accent-color: #2e7d4f;
+}
+
+#opacity-value {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 36px;
+    text-align: right;
+    color: #555;
+}
+
+/* ─── Legend ─────────────────────────────────────────────────────────────── */
+.legend-container {
+    position: absolute;
+    z-index: 1000;
+    left: 12px;
+    bottom: 36px;
+    width: 260px;
+    max-height: 40vh;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.legend-title {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e8e8e8;
+    background: #f8f8f8;
+}
+
+.legend-content {
+    padding: 10px 14px;
+    overflow-y: auto;
+    max-height: calc(40vh - 44px);
+}
+
+.legend-subtitle {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2e7d4f;
+}
+
+.legend-empty {
+    margin: 0;
+    font-size: 13px;
+    color: #999;
+    font-style: italic;
+}
+
+.legend-item {
+    margin-bottom: 12px;
+}
+
+.legend-item-title {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+.legend-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ─── OpenLayers controls ────────────────────────────────────────────────── */
+.ol-scale-line {
+    left: auto !important;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+.ol-full-screen {
+    top: 12px;
+    right: 12px;
+    left: auto !important;
+}
+
+.mouse-coords {
+    position: absolute;
+    right: 12px;
+    bottom: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: monospace;
+    color: #333;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Legacy (kept for other pages) ──────────────────────────────────────── */
 .floating-button {
     position: absolute;
     z-index: 999;
@@ -11,7 +309,6 @@
 }
 
 .wrapper.style2 {
-    /* This is an example of how to change colors in the template */
     background-color: #2e7947;
 }
 
@@ -27,24 +324,12 @@
 }
 
 .custom-banner {
-    /*Change the background image here*/
     background-image: url('../../images/background-index.jpg') !important;
     background-size: cover !important;
-
-    /* Original background, for reference
-    background-attachment: scroll, scroll, scroll, fixed;
-    background-color: #645862;
-    background-image: url("images/light-bl.svg"), url("images/light-br.svg"), url("images/overlay.png"), url("../../images/banner.jpg");
-    background-position: bottom left, bottom right, top left, top center;
-    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-    background-size: 25em, 25em, auto, cover;
-    */
-
     width: 100%;
     height: 100%;
 }
 
-/*Popup Styles*/
 .ol-popup {
     position: absolute;
     background-color: white;
@@ -89,23 +374,6 @@
     right: 8px;
 }
 
-.ol-popup-closer:after {}
-
-.legend-container{
-    position: absolute;
-    z-index: 9999;
-    background-color: white;
-    left: 10px;
-    bottom: 50px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-}
-
-.legend-content ul{
-    list-style: none;
-}
-
 .legend-color {
     width: 10px;
     height: 10px;
@@ -113,14 +381,6 @@
     margin-right: 10px;
 }
 
-.legend-title{
-    font-size: 25px;
-    text-align: center;
-    padding: 10px;
-    display: block;
-}
-
-/*Add your new styles after this line*/
 .custom-control {
     bottom: 30px;
     position: absolute;

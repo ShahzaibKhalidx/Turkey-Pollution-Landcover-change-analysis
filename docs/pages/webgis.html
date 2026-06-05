@@ -2,39 +2,84 @@
 <html lang="en">
 
 <head>
-    <base href="">
-    <title>WEBGIS - Map</title>
-
     <meta charset="utf-8">
-
-    <!--StyleSheets-->
-    <!-- <link rel="stylesheet" href="../assets/libraries/ol-v6.14.1-dist/ol.css"> -->
-
-    <!-- Static files are imported from public folder -->
-
-    <!-- Modules are imported normally -->
-  <script type="module" crossorigin src="/polimi-webgis-class-2026/assets/webgis-BOejbh3m.js"></script>
-  <link rel="stylesheet" crossorigin href="/polimi-webgis-class-2026/assets/webgis-CFj0Ev7Y.css">
-  <link rel="stylesheet" crossorigin href="/polimi-webgis-class-2026/assets/bootstrap-CdlCfih4.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Turkey Pollution &amp; Land Cover — WebGIS</title>
+
+  <script type="module" crossorigin src="/assets/webgis-ZH4mi8E6.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/webgis-DukVolB1.css">
+  <link rel="stylesheet" crossorigin href="/assets/bootstrap-CdlCfih4.css">
 </head>
 
 <body>
-    <div class="w-100 vh-100">
-        <div class="floating-button">
-            <a href="../index.html" class="btn btn-success">Go Home</a>
+    <div class="map-app">
+
+        <!-- Go Home -->
+        <a href="../index.html" id="go-home" class="go-home-btn">Go Home</a>
+
+        <!-- Pollutant switcher -->
+        <div class="pollutant-switcher" role="group" aria-label="Pollutant">
+            <button class="pollutant-btn" data-pollutant="no2">NO₂</button>
+            <button class="pollutant-btn" data-pollutant="pm25">PM₂.₅</button>
+            <button class="pollutant-btn active" data-pollutant="pm10">PM10</button>
         </div>
+
+        <!-- Layer panel (collapsible sidebar) -->
+        <aside id="layer-panel" class="layer-panel">
+            <div class="layer-panel-header">
+                <h2>Layers</h2>
+                <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Collapse panel">‹</button>
+            </div>
+
+            <div class="layer-panel-body">
+                <label class="layer-toggle-row">
+                    <input type="checkbox" class="layer-toggle" data-layer="concentration" checked>
+                    <span>Concentration map 2023</span>
+                </label>
+                <label class="layer-toggle-row">
+                    <input type="checkbox" class="layer-toggle" data-layer="amac">
+                    <span>AMAC change 2021–2023</span>
+                </label>
+                <label class="layer-toggle-row">
+                    <input type="checkbox" class="layer-toggle" data-layer="landCover">
+                    <span>Land Cover Change</span>
+                </label>
+                <label class="layer-toggle-row">
+                    <input type="checkbox" class="layer-toggle" data-layer="bivariate">
+                    <span>Bivariate (population × pollution)</span>
+                </label>
+                <label class="layer-toggle-row">
+                    <input type="checkbox" class="layer-toggle" data-layer="population">
+                    <span>Population quantiles</span>
+                </label>
+
+                <hr class="panel-divider">
+
+                <p class="panel-section-title">Basemap</p>
+                <div class="basemap-switcher" role="group" aria-label="Basemap">
+                    <button class="basemap-btn active" data-basemap="osm">OSM</button>
+                    <button class="basemap-btn" data-basemap="esriTopo">ESRI Topo</button>
+                    <button class="basemap-btn" data-basemap="esriImagery">ESRI Imagery</button>
+                    <button class="basemap-btn" data-basemap="stamenToner">Stamen Toner</button>
+                </div>
+
+                <hr class="panel-divider">
+
+                <p class="panel-section-title">WMS Opacity</p>
+                <div class="opacity-control">
+                    <input type="range" id="opacity-slider" min="0" max="1" step="0.05" value="0.85">
+                    <span id="opacity-value">85%</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Map -->
         <div id="map"></div>
 
-        <!--Add here the popup HTML-->
-        <div id="popup" class="ol-popup">
-            <a href="#" id="popup-closer" class="ol-popup-closer">&times;</a>
-            <div id="popup-content"></div>
-        </div>
-        
-        <!--Add here the legend HTML-->
+        <!-- Legend -->
         <div id="legend" class="legend-container">
             <span class="legend-title">Legend</span>
-            <div id="legend-content" class="legend-content"></div></div>
+            <div id="legend-content" class="legend-content"></div>
         </div>
 
     </div>

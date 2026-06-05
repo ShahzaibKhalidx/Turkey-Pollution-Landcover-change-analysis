@@ -4,7 +4,7 @@
   "description": "Project for the Web Development part of the GIS lessons 2026.",
   "scripts": {
     "start": "vite --base=./",
-    "build-production": "vite build --base=/polimi-webgis-class-2026/",
+    "build-production": "vite build --base=/Turkey-Pollution-Landcover-change-analysis/",
     "build-local": "vite build",
     "preview": "vite preview --base=./"
   },
